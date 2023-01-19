@@ -16,11 +16,15 @@ me_info = masto_conn.me()
 my_id = me_info['id']
 my_name = me_info['display_name']
 
-my_statuses = masto_conn.account_statuses(my_id, limit=100)
+my_statuses = masto_conn.account_statuses(my_id, limit=25)
+
+reblog_count = 0
+toot_count = 0
 
 print(f"My Name: {my_name}  My ID: {my_id}")
 for status in my_statuses:
     if status['reblog']:
+        reblog_count += 1
         # print(SEPARATOR)
         # reblog_content = status['reblog']['content']
         # print(f"Reblog: {reblog_content}")
@@ -31,3 +35,5 @@ for status in my_statuses:
             print("<><><><><><><><><><><><><>")
             print(f"Status: {status['content']}")
             print(f"Reblogs: {status['reblogs_count']} Favorites: {status['favourites_count']}")
+            
+print(f"TOTAL REBLOGS: {reblog_count}")
